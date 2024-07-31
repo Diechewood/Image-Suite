@@ -1,6 +1,5 @@
 import os
-import time
-from flask import Flask, request, send_file, render_template, make_response
+from flask import Flask, request, send_file, render_template, make_response, send_from_directory
 from rembg import remove
 from PIL import Image, ImageFilter
 from io import BytesIO
@@ -8,8 +7,12 @@ from io import BytesIO
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def home():
     return render_template('index.html')
+
+@app.route('/html/<path:filename>')
+def html_files(filename):
+    return send_from_directory('html', filename)
 
 @app.route('/background-remover', methods=['POST'])
 def background_remover():
