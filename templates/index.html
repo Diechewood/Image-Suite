@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Suite</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .tab {
+            display: none;
+        }
+        .tab.active {
+            display: block;
+        }
+        .tab-button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .tab-button.active {
+            background-color: #0056b3;
+        }
+        #drop-area {
+            border: 2px dashed #ccc;
+            border-radius: 20px;
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        #drop-area.highlight {
+            border-color: purple;
+        }
+        p {
+            margin: 0;
+            font-size: 16px;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        label.button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        label.button:hover {
+            background-color: #0056b3;
+        }
+        .progress-bar {
+            width: 0;
+            height: 20px;
+            background-color: green;
+            border-radius: 20px;
+            margin-top: 20px;
+            display: none;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        select {
+            margin-top: 10px;
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Suite</h1>
+    <div>
+        <button class="tab-button active" data-tab="background-remover">Background Remover</button>
+        <button class="tab-button" data-tab="blur-image">Blur Image</button>
+        <button class="tab-button" data-tab="image-rescaler">Image Rescaler</button>
+    </div>
+    <div id="background-remover" class="tab active">
+        <h2>Background Remover</h2>
+        <div id="drop-area">
+            <form id="file-form-background-remover" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="fileElemBackgroundRemover" accept="image/*">
+                <label class="button" for="fileElemBackgroundRemover">Select an image</label>
+                <p>or drag and drop an image file here</p>
+                <div class="progress-bar" id="progress-bar-background-remover"></div>
+            </form>
+        </div>
+    </div>
+    <div id="blur-image" class="tab">
+        <h2>Blur Image</h2>
+        <div id="drop-area">
+            <form id="file-form-blur-image" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="fileElemBlurImage" accept="image/*">
+                <label class="button" for="fileElemBlurImage">Select an image</label>
+                <p>or drag and drop an image file here</p>
+                <select name="blur_percentage" id="blurPercentage">
+                    <option value="10">10%</option>
+                    <option value="20">20%</option>
+                    <option value="30">30%</option>
+                    <option value="40">40%</option>
+                    <option value="50">50%</option>
+                    <option value="60">60%</option>
+                    <option value="70">70%</option>
+                    <option value="80">80%</option>
+                    <option value="90">90%</option>
+                    <option value="100">100%</option>
+                </select>
+                <div class="progress-bar" id="progress-bar-blur-image"></div>
+            </form>
+        </div>
+    </div>
+    <div id="image-rescaler" class="tab">
+        <h2>Image Rescaler</h2>
+        <div id="drop-area">
+            <form id="file-form-image-rescaler" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="fileElemImageRescaler" accept="image/*">
+                <label class="button" for="fileElemImageRescaler">Select an image</label>
+                <p>or drag and drop an image file here</p>
+                <select name="scale_percentage" id="scalePercentage">
+                    <option value="10">10%</option>
+                    <option value="20">20%</option>
+                    <option value="30">30%</option>
+                    <option value="40">40%</option>
+                    <option value="50">50%</option>
+                    <option value="60">60%</option>
+                    <option value="70">70%</option>
+                    <option value="80">80%</option>
+                    <option value="90">90%</option>
+                    <option value="100">100%</option>
+                    <option value="110">110%</option>
+                    <option value="120">120%</option>
+                    <option value="130">130%</option>
+                    <option value="140">140%</option>
+                    <option value="150">150%</option>
+                    <option value="160">160%</option>
+                    <option value="170">170%</option>
+                    <option value="180">180%</option>
+                    <option value="190">190%</option>
+                    <option value="200">200%</option>
+                    <option value="210">210%</option>
+                    <option value="220">220%</option>
+                    <option value="230">230%</option>
+                    <option value="240">240%</option>
+                    <option value="250">250%</option>
+                    <option value="260">260%</option>
+                    <option value="270">270%</option>
+                    <option value="280">280%</option>
+                    <option value="290">290%</option>
+                    <option value="300">300%</option>
+                </select>
+                <div class="progress-bar" id="progress-bar-image-rescaler"></div>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+
+                button.classList.add('active');
+                document.getElementById(button.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+
+        let dropAreas = document.querySelectorAll('#drop-area');
+        dropAreas.forEach(dropArea => {
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+                document.body.addEventListener(eventName, preventDefaults, false);
+            });
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, () => {
+                    dropArea.classList.add('highlight');
+                }, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, () => {
+                    dropArea.classList.remove('highlight');
+                }, false);
+            });
+
+            dropArea.addEventListener('drop', handleDrop, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function handleDrop(e) {
+            let dt = e.dataTransfer;
+            let files = dt.files;
+            let form = e.target.closest('.tab').querySelector('form');
+            handleFiles(files, form);
+        }
+
+        document.querySelectorAll('input[type="file"]').forEach(fileInput => {
+            fileInput.addEventListener('change', (e) => {
+                let files = e.target.files;
+                let form = e.target.closest('form');
+                handleFiles(files, form);
+            });
+        });
+
+        function handleFiles(files, form) {
+            if (files.length) {
+                let formData = new FormData();
+                formData.append('file', files[0]);
+
+                let formAction;
+                let timestamp = new Date().getTime();  // Add timestamp to ensure uniqueness
+                if (form.id === 'file-form-background-remover') {
+                    formAction = '/background-remover?' + timestamp;
+                } else if (form.id === 'file-form-blur-image') {
+                    formAction = '/blur-image?' + timestamp;
+                    formData.append('blur_percentage', form.querySelector('#blurPercentage').value);
+                } else if (form.id === 'file-form-image-rescaler') {
+                    formAction = '/image-rescaler?' + timestamp;
+                    formData.append('scale_percentage', form.querySelector('#scalePercentage').value);
+                }
+
+                let progressBar = form.querySelector('.progress-bar');
+                progressBar.style.display = 'block';
+                progressBar.style.width = '0';
+
+                let interval = setInterval(() => {
+                    progressBar.style.width = `${parseInt(progressBar.style.width) + 10}%`;
+                    if (progressBar.style.width === '100%') clearInterval(interval);
+                }, 100);
+
+                fetch(formAction, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    let url = window.URL.createObjectURL(blob);
+                    let a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = 'processed_image.png';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+
+                    progressBar.style.width = '100%';
+                    setTimeout(() => {
+                        progressBar.style.display = 'none';
+                        alert('Image processing complete!');
+                    }, 500);
+                })
+                .catch(() => {
+                    progressBar.style.display = 'none';
+                    alert('An error occurred. Please try again.');
+                });
+
+                 // Reset the file input to allow the same file to be uploaded again
+                form.querySelector('input[type="file"]').value = '';
+
+            }
+        }
+    </script>
+</body>
+</html>
