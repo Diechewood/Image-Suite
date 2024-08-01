@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 formData.append('scale_percentage', form.querySelector('#scalePercentage').value);
             } else if (form.id === 'file-form-bokeh-effect') {
                 formAction = '/bokeh-effect?' + timestamp;
+                formData.append('bokeh_blur', form.querySelector('#bokehBlur').value);
             }
 
             let progressBar = form.querySelector('.progress-bar');

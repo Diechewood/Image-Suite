@@ -31,7 +31,8 @@ def image_rescaler():
 
 @app.route('/bokeh-effect', methods=['POST'])
 def bokeh_effect():
-    return process_image(request, apply_bokeh_effect)
+    bokeh_blur = int(request.form.get('bokeh_blur', 50))
+    return process_image(request, lambda img: apply_bokeh_effect(img, bokeh_blur))
 
 def process_image(request, process_function):
     if 'file' not in request.files:
@@ -62,9 +63,9 @@ def rescale_image(input_image, percentage):
     height = int(input_image.height * (percentage / 100))
     return input_image.resize((width, height), Image.LANCZOS)
 
-def apply_bokeh_effect(input_image):
+def apply_bokeh_effect(input_image, blur_intensity):
     mask = remove(input_image, only_mask=True)
-    blurred_image = input_image.filter(ImageFilter.GaussianBlur(radius=10))
+    blurred_image = input_image.filter(ImageFilter.GaussianBlur(radius=blur_intensity / 10))
     output_image = Image.composite(input_image, blurred_image, mask)
     return output_image
 
