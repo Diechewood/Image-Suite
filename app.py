@@ -1,13 +1,14 @@
 import os
-from flask import Flask, request, send_file, render_template, make_response, send_from_directory
+import time
+from flask import Flask, request, send_file, send_from_directory, render_template, make_response
 from rembg import remove
 from PIL import Image, ImageFilter
 from io import BytesIO
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 @app.route('/')
-def home():
+def index():
     return render_template('index.html')
 
 @app.route('/html/<path:filename>')
@@ -27,6 +28,11 @@ def blur_image():
 def image_rescaler():
     scale_percentage = int(request.form.get('scale_percentage', 100))
     return process_image(request, lambda img: rescale_image(img, scale_percentage))
+
+@app.route('/bokeh-effect', methods=['POST'])
+def bokeh_effect():
+    bokeh_blur = int(request.form.get('bokeh_blur', 50))
+    return process_image(request, lambda img: apply_bokeh_effect(img, bokeh_blur))
 
 def process_image(request, process_function):
     if 'file' not in request.files:
@@ -56,6 +62,12 @@ def rescale_image(input_image, percentage):
     width = int(input_image.width * (percentage / 100))
     height = int(input_image.height * (percentage / 100))
     return input_image.resize((width, height), Image.LANCZOS)
+
+def apply_bokeh_effect(input_image, blur_intensity):
+    mask = remove(input_image, only_mask=True)
+    blurred_image = input_image.filter(ImageFilter.GaussianBlur(radius=blur_intensity / 10))
+    output_image = Image.composite(input_image, blurred_image, mask)
+    return output_image
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
