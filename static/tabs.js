@@ -73,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (form.id === 'file-form-image-rescaler') {
                 formAction = '/image-rescaler?' + timestamp;
                 formData.append('scale_percentage', form.querySelector('#scalePercentage').value);
+            } else if (form.id === 'file-form-bokeh-effect') {
+                formAction = '/bokeh-effect?' + timestamp;
             }
 
             let progressBar = form.querySelector('.progress-bar');
