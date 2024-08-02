@@ -1,23 +1,24 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css">
     <title>Image Suite</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icon.png') }}">
 </head>
 <body>
+    <header>
+        <img id="logo" src="/static/images/Logo.png" alt="Image Suite Logo">
+    </header>
     <div class="tab-container">
-        <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="Image Suite Logo" class="logo">
-        <div>
-            <button class="tab-button active" data-tab="background-remover">Background Remover</button>
-            <button class="tab-button" data-tab="bokeh-effect">Bokeh Effect</button>
-            <button class="tab-button" data-tab="blur-image">Blur Image</button>
-            <button class="tab-button" data-tab="image-rescaler">Image Rescaler</button>
-        </div>
+        <button class="tab-button active" data-tab="background-remover">Background Remover</button>
+        <button class="tab-button" data-tab="bokeh-effect">Bokeh Effect</button>
+        <button class="tab-button" data-tab="blur-image">Blur Image</button>
+        <button class="tab-button" data-tab="image-rescaler">Image Rescaler</button>
     </div>
-    <div id="tab-content" class="tab-content"></div>
-    <script src="{{ url_for('static', filename='tabs.js') }}"></script>
+    <div id="tab-content">
+        <!-- Tab content will be loaded here -->
+    </div>
+    <script src="/static/tabs.js"></script>
 </body>
 </html>

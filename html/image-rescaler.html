@@ -1,6 +1,6 @@
-<h2>Image Rescaler</h2>
-<div id="drop-area">
-    <form id="file-form-image-rescaler" method="post" enctype="multipart/form-data">
+<div id="tab-content">
+    <h2>Image Rescaler</h2>
+    <div id="drop-area">
         <label class="dropdown-label" for="scalePercentage">Select Scale Percentage:</label>
         <select name="scale_percentage" id="scalePercentage">
             <option value="10">10%</option>
@@ -34,9 +34,11 @@
             <option value="290">290%</option>
             <option value="300">300%</option>
         </select>
-        <input type="file" name="file" id="fileElemImageRescaler" accept="image/*">
-        <label class="button" for="fileElemImageRescaler">Select an image</label>
-        <p>or drag and drop an image file here</p>
-        <div class="progress-bar" id="progress-bar-image-rescaler"></div>
-    </form>
+        <form id="file-form-image-rescaler" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" id="fileElemImageRescaler" accept="image/*">
+            <label class="button" for="fileElemImageRescaler">Select an image</label>
+            <p>or drag and drop an image file here</p>
+            <div class="progress-bar" id="progress-bar-image-rescaler"></div>
+        </form>
+    </div>
 </div>

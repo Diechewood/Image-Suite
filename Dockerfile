@@ -1,5 +1,4 @@
-# Use the official Python image from the Docker Hub
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 # Copy the u2net.onnx model file to avoid unnecessary download
 COPY u2net.onnx /home/.u2net/u2net.onnx
@@ -17,7 +16,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Make port 5100 available to the world outside this container
-EXPOSE 5100
-
-# Run app.py when the container launches
+EXPOSE 8080
 CMD ["python", "app.py"]
