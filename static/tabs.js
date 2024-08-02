@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 formData.append('scale_percentage', form.querySelector('#scalePercentage').value);
             } else if (form.id === 'file-form-bokeh-effect') {
                 formAction = '/bokeh-effect?' + timestamp;
-                formData.append('bokeh_blur', form.querySelector('#bokehBlur').value);
+                formData.append('bokeh_blur', form.querySelector('#bokehBlur').value); // Add blur intensity
             }
 
             let progressBar = form.querySelector('.progress-bar');
@@ -110,12 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 progressBar.style.width = '100%';
                 setTimeout(() => {
                     progressBar.style.display = 'none';
-                    alert('Image processing complete!');
+                    showCustomPopup('Image processing complete!');
                 }, 500);
             })
             .catch(() => {
                 progressBar.style.display = 'none';
-                alert('An error occurred. Please try again.');
+                showCustomPopup('An error occurred. Please try again.');
             });
 
             // Reset the file input to allow the same file to be uploaded again

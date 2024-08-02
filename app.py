@@ -1,19 +1,14 @@
 import os
-import time
-from flask import Flask, request, send_file, send_from_directory, render_template, make_response
+from flask import Flask, request, send_file, render_template, make_response, send_from_directory
 from rembg import remove
 from PIL import Image, ImageFilter
 from io import BytesIO
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__)
 
 @app.route('/')
 def index():
     return render_template('index.html')
-
-@app.route('/html/<path:filename>')
-def html_files(filename):
-    return send_from_directory('html', filename)
 
 @app.route('/background-remover', methods=['POST'])
 def background_remover():
@@ -68,6 +63,10 @@ def apply_bokeh_effect(input_image, blur_intensity):
     blurred_image = input_image.filter(ImageFilter.GaussianBlur(radius=blur_intensity / 10))
     output_image = Image.composite(input_image, blurred_image, mask)
     return output_image
+
+@app.route('/html/<path:filename>')
+def html_files(filename):
+    return send_from_directory('html', filename)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))

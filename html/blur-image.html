@@ -1,20 +1,24 @@
 <div id="tab-content">
     <h2>Blur Image</h2>
+    <p class="description">
+        Apply a blur effect to your entire image to create artistic and soft-focused images.
+        You can adjust the blur intensity to suit your preferences.
+    </p>
     <div id="drop-area">
-        <label class="dropdown-label" for="blurPercentage">Select Blur Intensity:</label>
-        <select name="blur_percentage" id="blurPercentage">
-            <option value="10">10%</option>
-            <option value="20">20%</option>
-            <option value="30">30%</option>
-            <option value="40">40%</option>
-            <option value="50">50%</option>
-            <option value="60">60%</option>
-            <option value="70">70%</option>
-            <option value="80">80%</option>
-            <option value="90">90%</option>
-            <option value="100">100%</option>
-        </select>
         <form id="file-form-blur-image" method="post" enctype="multipart/form-data">
+            <label class="dropdown-label" for="blurPercentage">Select Blur Intensity:</label>
+            <select name="blur_percentage" id="blurPercentage">
+                <option value="10">10%</option>
+                <option value="20">20%</option>
+                <option value="30">30%</option>
+                <option value="40">40%</option>
+                <option value="50">50%</option>
+                <option value="60">60%</option>
+                <option value="70">70%</option>
+                <option value="80">80%</option>
+                <option value="90">90%</option>
+                <option value="100">100%</option>
+            </select>
             <input type="file" name="file" id="fileElemBlurImage" accept="image/*">
             <label class="button" for="fileElemBlurImage">Select an image</label>
             <p>or drag and drop an image file here</p>
