@@ -29,6 +29,15 @@ def bokeh_effect():
     bokeh_blur = int(request.form.get('bokeh_blur', 50))
     return process_image(request, lambda img: apply_bokeh_effect(img, bokeh_blur))
 
+@app.route('/foreground-blur', methods=['POST'])
+def foreground_blur():
+    foreground_blur_intensity = int(request.form.get('foreground_blur', 50))
+    return process_image(request, lambda img: apply_foreground_blur(img, foreground_blur_intensity))
+
+@app.route('/html/<path:filename>')
+def html_files(filename):
+    return send_from_directory('html', filename)
+
 def process_image(request, process_function):
     if 'file' not in request.files:
         return 'No file uploaded', 400
@@ -64,9 +73,12 @@ def apply_bokeh_effect(input_image, blur_intensity):
     output_image = Image.composite(input_image, blurred_image, mask)
     return output_image
 
-@app.route('/html/<path:filename>')
-def html_files(filename):
-    return send_from_directory('html', filename)
+def apply_foreground_blur(input_image, blur_intensity):
+    mask = remove(input_image, only_mask=True)
+    blurred_image = input_image.filter(ImageFilter.GaussianBlur(radius=blur_intensity / 10))
+    # The inverse of the bokeh effect, blur the foreground and keep the background clear
+    output_image = Image.composite(blurred_image, input_image, mask)
+    return output_image
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))

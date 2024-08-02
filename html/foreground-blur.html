@@ -1,0 +1,25 @@
+<div id="tab-content">
+    <h2>Foreground Blur</h2>
+    <p>Apply a foreground blur to your image while keeping the background in focus.</p>
+    <div id="drop-area">
+        <form id="file-form-foreground-blur" method="post" enctype="multipart/form-data">
+            <label class="dropdown-label" for="foregroundBlur">Select Foreground Blur Intensity:</label>
+            <select name="foreground_blur" id="foregroundBlur">
+                <option value="10">10%</option>
+                <option value="20">20%</option>
+                <option value="30">30%</option>
+                <option value="40">40%</option>
+                <option value="50">50%</option>
+                <option value="60">60%</option>
+                <option value="70">70%</option>
+                <option value="80">80%</option>
+                <option value="90">90%</option>
+                <option value="100">100%</option>
+            </select>
+            <input type="file" name="file" id="fileElemForegroundBlur" accept="image/*">
+            <label class="button" for="fileElemForegroundBlur">Select an image</label>
+            <p>or drag and drop an image file here</p>
+            <div class="progress-bar" id="progress-bar-foreground-blur"></div>
+        </form>
+    </div>
+</div>

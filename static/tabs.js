@@ -76,6 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (form.id === 'file-form-bokeh-effect') {
                 formAction = '/bokeh-effect?' + timestamp;
                 formData.append('bokeh_blur', form.querySelector('#bokehBlur').value); // Add blur intensity
+            } else if (form.id === 'file-form-foreground-blur') {
+                formAction = '/foreground-blur?' + timestamp;
+                formData.append('foreground_blur', form.querySelector('#foregroundBlur').value);
             }
 
             let progressBar = form.querySelector('.progress-bar');
