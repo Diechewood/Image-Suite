@@ -68,12 +68,16 @@ def rescale_image(input_image, percentage):
     return input_image.resize((width, height), Image.LANCZOS)
 
 def apply_bokeh_effect(input_image, blur_intensity):
+    if input_image.mode != "RGB":
+        input_image = input_image.convert("RGB")
     mask = remove(input_image, only_mask=True)
     blurred_image = input_image.filter(ImageFilter.GaussianBlur(radius=blur_intensity / 10))
     output_image = Image.composite(input_image, blurred_image, mask)
     return output_image
 
 def apply_foreground_blur(input_image, blur_intensity):
+    if input_image.mode != "RGB":
+        input_image = input_image.convert("RGB")
     mask = remove(input_image, only_mask=True)
     blurred_image = input_image.filter(ImageFilter.GaussianBlur(radius=blur_intensity / 10))
     # The inverse of the bokeh effect, blur the foreground and keep the background clear

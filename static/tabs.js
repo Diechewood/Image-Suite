@@ -58,6 +58,55 @@ document.addEventListener('DOMContentLoaded', () => {
         handleFiles(files, form);
     }
 
+    function showCustomPopup(message) {
+        // Create the overlay
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = 0;
+        overlay.style.left = 0;
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.zIndex = 1000;
+    
+        // Create the popup container
+        const popup = document.createElement('div');
+        popup.style.backgroundColor = '#0d0821'; // Change to dark background
+        popup.style.color = '#fff'; // White text color
+        popup.style.padding = '20px';
+        popup.style.borderRadius = '8px';
+        popup.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+        popup.style.maxWidth = '400px';
+        popup.style.textAlign = 'center';
+        
+        // Add the message
+        const messageEl = document.createElement('p');
+        messageEl.innerText = message;
+        popup.appendChild(messageEl);
+    
+        // Add a close button
+        const closeButton = document.createElement('button');
+        closeButton.innerText = 'Close';
+        closeButton.style.marginTop = '10px';
+        closeButton.style.padding = '10px 20px';
+        closeButton.style.border = 'none';
+        closeButton.style.borderRadius = '5px';
+        closeButton.style.backgroundColor = '#6a0dad';
+        closeButton.style.color = '#fff';
+        closeButton.style.cursor = 'pointer';
+        closeButton.onclick = function () {
+            document.body.removeChild(overlay);
+        };
+        popup.appendChild(closeButton);
+    
+        // Add the popup to the overlay and the overlay to the body
+        overlay.appendChild(popup);
+        document.body.appendChild(overlay);
+    }
+
     function handleFiles(files, form) {
         if (files.length) {
             let formData = new FormData();
