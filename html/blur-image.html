@@ -1,9 +1,6 @@
 <h2>Blur Image</h2>
 <div id="drop-area">
     <form id="file-form-blur-image" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" id="fileElemBlurImage" accept="image/*">
-        <label class="button" for="fileElemBlurImage">Select an image</label>
-        <p>or drag and drop an image file here</p>
         <label class="dropdown-label" for="blurPercentage">Select Blur Percentage:</label>
         <select name="blur_percentage" id="blurPercentage">
             <option value="10">10%</option>
@@ -17,6 +14,9 @@
             <option value="90">90%</option>
             <option value="100">100%</option>
         </select>
+        <input type="file" name="file" id="fileElemBlurImage" accept="image/*">
+        <label class="button" for="fileElemBlurImage">Select an image</label>
+        <p>or drag and drop an image file here</p>
         <div class="progress-bar" id="progress-bar-blur-image"></div>
     </form>
 </div>
